@@ -1,0 +1,75 @@
+/* .display {
+  border: solid black 1px;
+  height: 20px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+} */
+:root {
+  --main-width: 300px;
+} 
+
+span {
+  border: solid black 1px;
+  border-radius: 5px;
+  background-color: white;
+  height: 30px;
+  display: inline-block;
+  text-align: end;
+  line-height: 2em;
+  width: calc(var(--main-width) - 20px);
+  
+  /* flex-direction: row; */
+}
+
+.calculator {
+  /* border: solid black 1px; */
+  width: var(--main-width);
+  border-radius: 5px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgba(0, 38, 255, 0.144);
+}
+
+.buttons {
+  width: calc(var(--main-width) - 20px);
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  gap: 8px;
+}
+
+.first-row, .second-row, .third-row, .fourth-row, .fifth-row {
+  width: calc(var(--main-width) - 20px);
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 0;
+}
+  
+button {
+  height: 40px;
+  width: 56px;
+  background-color: rgba(170, 207, 255, 0.623);
+  border-radius: 5px;
+  padding: 0;
+  border: solid black .5px;
+}
+
+.add, .subtract, .divide, .multiply {
+  background-color: rgba(252, 200, 103, 0.699);
+}
+
+.equals {
+  background-color: rgba(34, 182, 34, 0.747);
+}
+
+.clear {
+  background-color: rgba(197, 63, 39, 0.699);
+}
