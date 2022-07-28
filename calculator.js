@@ -63,35 +63,39 @@ for (let button of buttons) {
     // console.log(typeof button.textContent);
     button.addEventListener("click", function() {
         let text = button.textContent;
-        if (didOperation) {
-            didOperation = true;
-            numbers = [];
-        }
-        else {
-            if (isNaN(text) === false) {
-            // console.log(button.textContent);
+        // if (didOperation) {
+        //     didOperation = true;
+        //     numbers = [];
+        //     return
+        // }
+        if (isNaN(text) === false) {
+        // console.log(button.textContent);
+            if (didOperation) {
+                display.textContent = "";
+                didOperation = false;
+                // return
+            }
             display.textContent += text;
             numbers.push(parseInt(text));
             console.log(numbers);
-            }
-            if (text === "AC") {
-                display.textContent = ""
-                signs = [];
-                numbers = [];
-            }
-            if (text === "+" || text === "-" || text === "x" || text === "/") {
-                display.textContent += ` ${text} `
-                signs.push(text);
-                console.log(signs);
-            }
-            if (text === "=") {
-                const equals = operate();
-                console.log(equals);
-                display.textContent = equals
-                didOperation = true;
-            }
         }
-
+        if (text === "AC") {
+            display.textContent = "";
+            signs = [];
+            numbers = [];
+        }
+        if (text === "+" || text === "-" || text === "x" || text === "/") {
+            display.textContent += ` ${text} `;
+            signs.push(text);
+            console.log(signs);
+        }
+        if (text === "=") {
+            const equals = operate();
+            console.log(equals);
+            display.textContent = equals;
+            numbers = [];
+            didOperation = true;
+        }
 
     });
     // break;
