@@ -1,3 +1,10 @@
+// stores the signs of the operations
+let signs = [];
+// stores all the numbers
+let numbers = [];
+// stores
+let nums = [];
+
 function add (a, b) {
     return a + b;
 }
@@ -17,7 +24,7 @@ function divide (a, b) {
     return a / b;
 }
 
-// start with the first number, then check for the first sign, delete that sign and call that sign operation, repeat
+// Miain function
 function operate() {
     return numbers.reduce(function(total, num, index)
     {  
@@ -25,29 +32,24 @@ function operate() {
         if (total === "OOPS") {
             return "OOPS";
         }
-        let a;
+        let sign;
         if (index !== 0) {
-            a = signs.shift();
-            if (a === "+") {
+            sign = signs.shift();
+            if (sign === "+") {
                 return add(total, num);
             }
-            else if (a === "-") {
+            else if (sign === "-") {
                 return subtract(total, num);
             }
-            else if (a === "x") {
+            else if (sign === "x") {
                 return multiply(total, num);
             }
-            else if (a === "/") {
+            else if (sign === "/") {
                 return divide(total, num);
             }
         }
     })
 }
-
-
-let signs = [];
-let numbers = [];
-let nums = [];
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector("span");
@@ -61,7 +63,6 @@ const interact = function () {
         button.addEventListener("click", function() {
             let text = button.textContent;
             
-
             if (isNaN(text) === false) {
                 // This condition checks if the = button pressed, clears screen for new numbers to display
                 if (didOperation || display.textContent === "OOPS") {
