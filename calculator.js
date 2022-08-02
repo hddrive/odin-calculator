@@ -1,8 +1,3 @@
-const a = ["1", "+", "2", "-", "3", "+", "6", "*", "3", "/", "2"];
-const b = ["+", "-", "+", "*", "/"];
-const c = [1, 2, 3, 6, 3, 2];
-
-
 function add (a, b) {
     return a + b;
 }
@@ -52,56 +47,75 @@ function operate() {
 
 let signs = [];
 let numbers = [];
+let nums = [];
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector("span");
-// console.log(buttons);
 
 let didOperation = false;
 
-for (let button of buttons) {
-    // console.log(typeof button.textContent);
-    button.addEventListener("click", function() {
-        let text = button.textContent;
-        // if (didOperation) {
-        //     didOperation = true;
-        //     numbers = [];
-        //     return
-        // }
-        if (isNaN(text) === false) {
-        // console.log(button.textContent);
-            if (didOperation) {
-                display.textContent = "";
-                didOperation = false;
-                // return
-            }
-            display.textContent += text;
-            numbers.push(parseInt(text));
-            console.log(numbers);
-        }
-        if (text === "AC") {
-            display.textContent = "";
-            signs = [];
-            numbers = [];
-        }
-        if (text === "+" || text === "-" || text === "x" || text === "/") {
-            display.textContent += ` ${text} `;
-            signs.push(text);
-            console.log(signs);
-        }
-        if (text === "=") {
-            const equals = operate();
-            console.log(equals);
-            display.textContent = equals;
-            numbers = [];
-            didOperation = true;
-        }
+const interact = function () {
+    for (let button of buttons) {
+        
+        // console.log(typeof button.textContent);
+        button.addEventListener("click", function() {
+            let text = button.textContent;
+            
 
-    });
-    // break;
+            if (isNaN(text) === false) {
+                // This condition checks if the = button pressed, clears screen for new numbers to display
+                if (didOperation || display.textContent === "OOPS") {
+                    display.textContent = "";
+                    didOperation = false;
+                }
+                display.textContent += text;
+                nums.push(text);
+            }
+            if (text === "AC") {
+                display.textContent = "";
+                signs, nums, numbers = [];
+            }
+            if (text === "+" || text === "-" || text === "x" || text === "/") {
+                console.log(didOperation);
+                console.log(display.textContent === "OOPS");
+                if (didOperation && display.textContent === "OOPS") {
+                    didOperation = false;
+                    display.textContent = "";
+                    return;
+                }
+                else if (didOperation) {
+                    didOperation = false;
+                    signs.push(text);
+                    display.textContent += ` ${text} `;
+                    return;
+                }
+                else if (!didOperation && nums.length === 0) {
+                    console.log(nums.length);
+                    return;
+                }
+                display.textContent += ` ${text} `;
+                numbers.push(parseInt(nums.join("")));
+                nums = [];
+                signs.push(text);
+            }
+            if (text === "=") {
+                console.log(numbers, "numbers");
+                numbers.push(parseInt(nums.join("")));
+                const equals = operate();
+                display.textContent = equals;
+                console.log(equals);
+                if (equals === "OOPS") {
+                    numbers = [];
+                    nums = [];
+                    didOperation = true;
+                    return;
+                }
+                numbers = [equals];
+                nums = [];
+                didOperation = true;
+            }
+        });
+    }
 }
 
-// console.log(button.textContent);
-// button.addEventListener("click", () => 
-//     display.textContent = button.textContent);
-
+interact();
